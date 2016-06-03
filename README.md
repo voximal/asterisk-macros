@@ -25,7 +25,9 @@ For Asterisk 1.6
 For Asterisk 13
 
   #define GET_CHAN_NAME(chan) ast_channel_name(chan)
+  
   #define GET_CHAN_NATIVEFORMATS(chan) ast_channel_nativeformats(chan)
+  
   #define GET_FRAME_CONTROL_TYPE(frame) frame->subclass.integer
 
 ##License
