@@ -14,16 +14,19 @@ Any Asterisk version from 1.6 to the last one.
 --------
 
 For Asterisk 1.6
-#define GET_CHAN_NAME(chan) chan->name
-#define GET_CHAN_NATIVEFORMATS(chan) chan->nativeformats
-#define GET_FRAME_CONTROL_TYPE(frame) frame->subclass
+  
+  #define GET_CHAN_NAME(chan) chan->name
+  
+  #define GET_CHAN_NATIVEFORMATS(chan) chan->nativeformats
+  
+  #define GET_FRAME_CONTROL_TYPE(frame) frame->subclass
 
 
 For Asterisk 13
-#define GET_CHAN_NAME(chan) ast_channel_name(chan)
-#define GET_CHAN_NATIVEFORMATS(chan) ast_channel_nativeformats(chan)
-#define GET_FRAME_CONTROL_TYPE(frame) frame->subclass.integer
 
+  #define GET_CHAN_NAME(chan) ast_channel_name(chan)
+  #define GET_CHAN_NATIVEFORMATS(chan) ast_channel_nativeformats(chan)
+  #define GET_FRAME_CONTROL_TYPE(frame) frame->subclass.integer
 
 ##License
 -------
