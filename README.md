@@ -49,4 +49,4 @@ https://www.gnu.org/licenses/gpl-2.0.txt
 
 Found an issue? Solved one? Added something that was missing? Help us make it better!
 
-Developed by [@voximal](https://github.com/voximal)
+Developed by [@voximal](https://github.com/voximal) from the [Ulex.fr](https://www.ulex.fr) company
