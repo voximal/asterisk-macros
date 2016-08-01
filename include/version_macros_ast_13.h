@@ -77,7 +77,7 @@
 
 #define SET_CHAN_NATIVEFORMATS(chan,newnativeformats) ast_channel_nativeformats_set(chan, newnativeformats)
 
-#define SET_CHAN_NATIVEFORMAT(fmt1) {\
+#define SET_CHAN_NATIVEFORMAT(chan, fmt1) {\
     struct ast_format_cap *native = ast_format_cap_alloc(AST_FORMAT_CAP_FLAG_DEFAULT);  \
     if (native) {                                                                       \
         ast_format_cap_append(native, fmt1, 0); 				                        \

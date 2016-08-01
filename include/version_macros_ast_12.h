@@ -170,7 +170,7 @@ fast->cap = temp_cap;													\
 	SET_CHAN_NATIVEFORMATS(chan, temp_cap);						\
 }	
 
-#define SET_CHAN_NATIVEFORMAT(fmt1) {\
+#define SET_CHAN_NATIVEFORMAT(chan, fmt1) {\
 	struct ast_format temp_format;													\
 	struct ast_format_cap *temp_cap;												\
 	ast_format_cap_add(temp_cap, ast_format_set(&temp_format, fmt1,0));	\
