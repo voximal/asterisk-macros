@@ -133,7 +133,7 @@
 #else
 /* For Asterisk 13 */
  #warning
- #warning "Compilation for Asterisk 13 !"
+ #warning "Compilation for Asterisk >= 13 !"
  #warning
 #endif
 
