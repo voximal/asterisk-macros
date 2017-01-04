@@ -270,6 +270,8 @@ chan->dialed.number.str = value
 
 #define FORMAT_CLEAR(fmt1) fmt1 = 0
 
+#define FORMAT_FREE(fmt1) ;
+
 #define GET_FORMAT_NAME_MULTIPLE(string, size, fmt1) ast_getformatname_multiple(string, size, fmt1)
 
 #define COPY_FORMAT_CAP(dst, src) dst = src

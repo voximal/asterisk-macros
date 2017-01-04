@@ -331,6 +331,8 @@ result = ast_pbx_outgoing_exten(tech, temp_cap, number, connecttimeout * 1000, "
 
 // Rev20
 #define FRAME_SUBCLASS_FORMAT_CLEAR(frame) ast_format_clear(&frame->subclass.format)
+
+#define FORMAT_FREE(fmt1) ;
 	
 // Rev21
 #define GET_FRAME_CONTROL_TYPE(frame) frame->subclass.integer

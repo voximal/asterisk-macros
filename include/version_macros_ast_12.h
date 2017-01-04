@@ -332,6 +332,8 @@ result = ast_pbx_outgoing_exten(tech, temp_cap, number, connecttimeout * 1000, "
 
 #define FORMAT_CLEAR(fmt1) ast_format_clear(&fmt1)
 
+#define FORMAT_FREE(fmt1) ;
+
 #define GET_FORMAT_NAME_MULTIPLE(string, size, fmt_cap1)	ast_getformatname_multiple(string, size, fmt_cap1)
 
 #define COPY_FORMAT_CAP(dst, src) ast_format_cap_copy(dst,src)

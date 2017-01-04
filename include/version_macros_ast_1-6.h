@@ -261,6 +261,8 @@ result = ast_pbx_outgoing_exten(tech, AST_FORMAT_SLINEAR | GET_CHAN_NATIVEFORMAT
 
 #define FORMAT_CLEAR(fmt1) fmt1 = 0
 
+#define FORMAT_FREE(fmt1) ;
+
 #define GET_FORMAT_NAME_MULTIPLE(string, size, fmt1) ast_getformatname_multiple(string, size, fmt1)
 
 #define COPY_FORMAT_CAP(dst, src) dst = src

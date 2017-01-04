@@ -42,6 +42,14 @@
 #include "asterisk/format_cache.h"
 
 
+#define AST_FORMAT_ULAW             ast_format_ulaw
+#define AST_FORMAT_ALAW             ast_format_alaw
+#define AST_FORMAT_SPEEX            ast_format_speex
+#define AST_FORMAT_SLINEAR          ast_format_slin
+#define AST_FORMAT_H263             ast_format_h263
+#define AST_FORMAT_H263_PLUS        ast_format_h263_plus
+#define AST_FORMAT_H264             ast_format_h264
+
 
 #define GET_CHAN_DATASTORES(chan) ast_channel_datastores(chan)
 
@@ -190,6 +198,7 @@ fast->cap = temp_cap;												\
 
 #define GET_CHAN_TECH_TYPE ast_channel_tech(chan)->type
 
+
 #define GET_CHAN_TECH_FUNC_CHANNEL_WRITE_NOARGS ast_channel_tech(chan)->func_channel_write
 
 #define GET_CHAN_TECH_FUNC_CHANNEL_WRITE  ast_channel_tech(chan)->func_channel_write(chan, function, data, value)
@@ -276,7 +285,7 @@ fast->cap = temp_cap;												\
 
 #define GET_FRAME_SUBCLASS_FORMAT_ID(frame)	frame->subclass.format.id
 
-#define	ALLOCATE_CHANNEL(needqueue, state, cid_num, cid_name, acctcode, exten, context, linkedid, amaflag, param1, param2) ast_channel_alloc(needqueue, state, cid_num, cid_name, acctcode, exten, context, linkedid, amaflag, param1, param2)
+#define	ALLOCATE_CHANNEL(needqueue, state, cid_num, cid_name, acctcode, exten, context, linkedid, amaflag, param1, param2) ast_channel_alloc(needqueue, state, cid_num, cid_name, acctcode, exten, context, linkedid, NULL, amaflag, param1, param2)
 
 #define GET_CHAN_NATIVEFORMATS_BITFIELD(chan) (unsigned int)ast_format_cap_to_old_bitfield(ast_channel_nativeformats(chan))
 
@@ -294,7 +303,7 @@ fast->cap = temp_cap;												\
 	ast_channel_caller(chan)->ani.number.valid = 1;	\
 	ast_channel_caller(chan)->ani.number.str = value;
 	
-#define COMPARE_VARFORMAT_IDFORMAT(ast_fmt1, fmt2) ast_fmt1.id == fmt2
+#define COMPARE_VARFORMAT_IDFORMAT(ast_fmt1, fmt2) ast_format_set(ast_fmt1, fmt2, 0)
 
 #define SET_CHAN_CALLERID_DNID(chan, value) ast_channel_dialed(chan)->number.str = value
 
@@ -310,13 +319,16 @@ fast->cap = temp_cap;												\
 
 #define TCPTLS_SESSION_PORT(address)	_ast_sockaddr_port(&address, __FILE__, __LINE__, __PRETTY_FUNCTION__)
 
-#define INITIALIZE_CLIENT_AUDIOCODEC struct ast_format audiocodec
+#define INITIALIZE_CLIENT_AUDIOCODEC struct ast_format *audiocodec
 
 #define FORMAT_FORCE_TO_OLD_BITFIELD(fmt1)	ast_format_to_old_bitfield(&fmt1)
 
 #define FORMAT_FORCE_FROM_OLD_BITFIELD(fmt1, format)	ast_format_from_old_bitfield(&fmt1, format)
 
-#define FORMAT_CLEAR(fmt1) ast_format_clear(&fmt1)
+#define FORMAT_CLEAR(fmt1) fmt1 = ast_format_cap_alloc(AST_FORMAT_CAP_FLAG_DEFAULT)
+
+#define FORMAT_FREE(fmt1) ao2_cleanup(fmt1);  \
+	fmt1 = NULL;
 
 #define GET_FORMAT_NAME_MULTIPLE(string, size, fmt_cap1)	ast_getformatname_multiple(string, size, fmt_cap1)
 
@@ -335,6 +347,32 @@ fast->cap = temp_cap;												\
 #define TCPTLS_SESSION_ADDRESS_FORCE_SOCKADDR_IN(remote_address, addr_in)	ast_sockaddr_to_sin(&remote_address, addr_in)
 
 #define GET_CHAN_TECH(chan) ast_channel_tech(chan)
+
+#define ALLOCATE_CAPABILITIES(capabilities) capabilities = AST_FORMAT_CAP_ALLOC_NOLOCK;
+
+#define ADD_CAPABILITIES5(cap, fmt1, fmt2, fmt3, fmt4, fmt5)	\
+    ast_format_cap_remove_by_type(cap, AST_MEDIA_TYPE_UNKNOWN);	\
+    ast_format_cap_append(cap, fmt1, 0);	\
+    ast_format_cap_append(cap, fmt2, 0);	\
+    ast_format_cap_append(cap, fmt3, 0);	\
+    ast_format_cap_append(cap, fmt4, 0);	\
+    ast_format_cap_append(cap, fmt5, 0);
+
+#define ADD_CAPABILITIES4(cap, fmt1, fmt2, fmt3, fmt4)	\
+    ast_format_cap_remove_by_type(cap, AST_MEDIA_TYPE_UNKNOWN);	\
+    ast_format_cap_append(cap, fmt1, 0);	\
+    ast_format_cap_append(cap, fmt2, 0);	\
+    ast_format_cap_append(cap, fmt3, 0);	\
+    ast_format_cap_append(cap, fmt4, 0);
+
+#define ADD_CAPABILITIES2(cap, fmt1, fmt2) 	\
+    ast_format_cap_remove_by_type(cap, AST_MEDIA_TYPE_UNKNOWN);	\
+    ast_format_cap_append(cap, fmt1, 0);	\
+    ast_format_cap_append(cap, fmt2, 0);
+
+#define ADD_CAPABILITIES1(cap, fmt1) 	\
+	  ast_format_cap_remove_by_type(cap, AST_MEDIA_TYPE_UNKNOWN);	\
+    ast_format_cap_append(cap, fmt1, 0);
 
 #define SCHED_CREATE ast_sched_context_create()
 
@@ -356,9 +394,9 @@ fast->cap = temp_cap;												\
 
 #define FORMAT_VAR_TO_ID(fmt1) fmt1.id
 
-#define GET_FORMAT_NAME(fmt1)	ast_getformatname(&fmt1)
+#define GET_FORMAT_NAME(fmt1)	ast_getformatname(fmt1)
 
-#define COMPARE_VARFORMAT_VARFORMAT(ast_fmt1, ast_fmt2) ast_fmt1.id == ast_fmt2.id
+#define COMPARE_VARFORMAT_VARFORMAT(ast_fmt1, ast_fmt2) (ast_fmt1 == ast_fmt2)
 
 #define INITIALIZE_OLDFORMAT struct ast_format_cap *oldformat = AST_FORMAT_CAP_ALLOC_NOLOCK
 
